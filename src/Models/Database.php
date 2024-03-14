@@ -42,7 +42,7 @@ final class Database
         }
         // Télécharger le fichier sql d'initialisation dans la BDD
         try {
-            $sql = file_get_contents(__DIR__ . "/../Migrations/cinema-remplie.sql");
+            $sql = file_get_contents(__DIR__ . "/../Migrations/todolist.sql");
 
             $this->DB->query($sql);
             // Mettre à jour le fichier config.php
@@ -63,9 +63,9 @@ final class Database
      */
     private function testIfTableTaskExists(): bool
     {
-        $existant = $this->DB->query('SHOW TABLES FROM ' . DB_NAME . ' like \'' . PREFIXE . 'films\'')->fetch();
+        $existant = $this->DB->query('SHOW TABLES FROM ' . DB_NAME . ' like \'' . PREFIXE . 'task\'')->fetch();
 
-        if ($existant !== false && $existant[0] == PREFIXE . "films") {
+        if ($existant !== false && $existant[0] == PREFIXE . "Task") {
             return true;
         } else {
             return false;

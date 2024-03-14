@@ -1,5 +1,9 @@
 <?php
-include("./autoload.php");
+include("./../src/autoload.php");
+$code_erreur = null;
+if (isset($_GET['erreur'])) {
+    $code_erreur = (int) $_GET['erreur'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,9 +30,15 @@ include("./autoload.php");
             </div>
 
         </div>
-        <?php include './include/menu.php'; ?>
-        <?php include './include/newTask.php'; ?>
-        <?php include './include/params.php'; ?>
+
+        <?php
+        include './../include/connexion.php';
+        include './../include/menu.php';
+        include './../include/newTask.php';
+        include './../include/params.php';
+        include './../include/Register.php';
+        ?>
+
     </main>
     <footer class="*:rounded-full *:bg-cyan-300 flex *:size-16 justify-between m-5">
         <div onclick="menu()">menu</div>
@@ -41,6 +51,6 @@ include("./autoload.php");
 </body>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="./src/fetch.js"></script>
+<script src="./JS/script.js"></script>
 
 </html>

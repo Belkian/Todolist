@@ -1,5 +1,4 @@
 # Rediriger vers index.php
-
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
