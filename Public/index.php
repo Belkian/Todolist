@@ -15,8 +15,9 @@ if (isset($_GET['erreur'])) {
 </head>
 
 <body class="">
-    <header id="erreur" class=" flex w-100% h-16 bg-cyan-400 rounded-b-lg text-2xl font-bold justify-center items-center">
+    <header class=" flex w-100% h-16 bg-cyan-400 rounded-b-lg text-2xl font-bold justify-center items-center">
         <h1>To Do List</h1>
+        <p id="erreur"></p>
     </header>
     <main>
         <div class=" w-2/3 h-12 flex justify-between items-center bg-cyan-600 my-3 mx-auto *:m-4 rounded-md *:text-white">

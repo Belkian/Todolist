@@ -15,8 +15,7 @@ function CreateNewUser() {
         "password2": password2
     }
     const request = new XMLHttpRequest();
-
-    request.open('POST', '../../src/traitement.php', true);
+    request.open('POST', 'traitement.php', true);
 
     request.setRequestHeader('Content-Type', 'application/json');
     data = JSON.stringify(data);
@@ -25,6 +24,7 @@ function CreateNewUser() {
 
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
+            console.log(request.responseText);
             reponse.innerHTML += request.responseText + "<br>";
             // reponse.innerHTML += JSON.parse(request.responseText) + "<br>";
         }
