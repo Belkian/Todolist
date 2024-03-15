@@ -16,8 +16,8 @@
     </div>
 
     <div>
-        <label for="password">Password :</label>
-        <input type="password" id="password" name="password" required class="block w-10/12 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 indent-3 m-auto">
+        <label for="passwordConnexion">Password :</label>
+        <input type="passwordConnexion" id="passwordConnexion" name="passwordConnexion" required class="block w-10/12 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 indent-3 m-auto">
         <?php if ($code_erreur === 7) { ?>
             <p class='message error'>Mauvais password</p>
         <?php } ?>

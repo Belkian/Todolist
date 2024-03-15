@@ -9,8 +9,8 @@ if (!empty(file_get_contents('php://input'))) {
     $user = (json_decode($data, true));
 
 
+    if ($user['Name'] && $user['LastName'] && $user['Email'] && $user['password'] && $user['password2'] && isset($user['Name']) && isset($user['LastName']) && isset($user['Email']) && isset($user['password']) && isset($user['password2'])) {
 
-    if (!empty($user['Name']) && !empty($user['LastName']) && !empty($user['Email']) && !empty($user['password']) && !empty($user['password2']) && isset($user['Name']) && isset($user['LastName']) && isset($user['Email']) && isset($user['password']) && isset($user['password2'])) {
         $LastName = htmlentities($user['LastName']);
         $Name = htmlentities($user['Name']);
 
@@ -35,8 +35,8 @@ if (!empty(file_get_contents('php://input'))) {
 
         $Data_base = new Database();
         $user = new User($user);
-        $UserRepositori = new UserRepository();
-        $UserRepositori->CreateThisUser($user);
+        $UserRepository = new UserRepository();
+        $UserRepository->CreateThisUser($user);
         header('Content-Type: application/json');
         echo json_encode($user);
     } else {
