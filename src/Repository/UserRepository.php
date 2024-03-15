@@ -1,5 +1,11 @@
 <?php
 
+namespace src\Repository;
+
+use PDO;
+use src\Models\Database;
+use src\Models\User;
+
 class UserRepository
 {
     private $DB;
@@ -8,7 +14,6 @@ class UserRepository
     {
         $database = new Database;
         $this->DB = $database->getDB();
-
         require_once __DIR__ . '/../../config.php';
     }
 
@@ -21,31 +26,32 @@ class UserRepository
         return $retour;
     }
 
-    public function getThisUser($id): User
+    public function getThisUser(int $id): User
     {
         $sql = "SELECT * FROM " . PREFIXE . "user WHERE id = :id";
 
         $statement = $this->DB->prepare($sql);
         $statement->bindParam(':id', $id);
         $statement->execute();
-
-        $retour = $statement->fetch(PDO::FETCH_CLASS, 'user');
+        $statement->setFetchMode(PDO::FETCH_CLASS, 'src\Models\user');
+        $retour = $statement->fetch();
 
         return $retour;
     }
 
     public function CreateThisUser(User $user): bool
     {
-        $sql = "INSERT INTO " . PREFIXE . "user( NOM, URL_AFFICHE, LIEN_TRAILER, RESUME, DUREE, DATE_SORTIE, ID_CLASSIFICATION_AGE_PUBLIC) VALUES (:NOM, :URL_AFFICHE, :LIEN_TRAILER, :RESUME, :DUREE, :DATE_SORTIE, :ID_CLASSIFICATION_AGE_PUBLIC)";
+        $sql = "INSERT INTO " . PREFIXE . "user( NAME, LASTNAME, PASSWORD, EMAIL) 
+        VALUES (:NAME, :LASTNAME, :PASSWORD, :EMAIL)";
 
         $statement = $this->DB->prepare($sql);
 
         $retour = $statement->execute([
-            ':ID' => $user->getID(),
-            ':NAME' => $user->getNAME(),
-            ':LASTNAME' => $user->getLASTNAME(),
-            ':PASSWORD' => $user->getPASSWORD(),
-            ':EMAIL' => $user->getEMAIL(),
+            ':ID' => $user->getId(),
+            ':NAME' => $user->getName(),
+            ':LASTNAME' => $user->getLastname(),
+            ':PASSWORD' => $user->getPassword(),
+            ':EMAIL' => $user->getEmail()
         ]);
 
         return $retour;
@@ -65,11 +71,11 @@ class UserRepository
         $statement = $this->DB->prepare($sql);
 
         $retour = $statement->execute([
-            ':ID' => $user->getID(),
-            ':NAME' => $user->getNAME(),
-            ':LASTNAME' => $user->getLASTNAME(),
-            ':PASSWORD' => $user->getPASSWORD(),
-            ':EMAIL' => $user->getEMAIL(),
+            ':ID' => $user->getId(),
+            ':NAME' => $user->getName(),
+            ':LASTNAME' => $user->getLastname(),
+            ':PASSWORD' => $user->getPassword(),
+            ':EMAIL' => $user->getEmail()
         ]);
 
         return $retour;
@@ -82,7 +88,7 @@ class UserRepository
               DELETE FROM" . PREFIXE . "user WHERE ID_FILMS =  :ID;";
             $statement = $this->DB->prepare($sql);
             return $statement->execute([':ID' => $ID]);
-        } catch (Error $error) {
+        } catch (\Error $error) {
             return false;
         }
     }

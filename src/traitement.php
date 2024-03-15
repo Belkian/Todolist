@@ -1,18 +1,22 @@
 <?php
 
-if (!empty(file_get_contents('/../Public/JS/script.js'))) {
-    $data = file_get_contents('/../Public/JS/script.js');
+use src\Models\Database;
+use src\Models\User;
+use src\Repository\UserRepository;
+
+if (!empty(file_get_contents('php://input'))) {
+    $data = file_get_contents('php://input');
     $user = (json_decode($data, true));
 
 
 
-    if (!empty($_POST['Name']) && !empty($_POST['LastName']) && !empty($_POST['Email']) && !empty($_POST['password']) && !empty($_POST['password2']) && isset($_POST['Name']) && isset($_POST['LastName']) && isset($_POST['Email']) && isset($_POST['password']) && isset($_POST['password2'])) {
-        $LastName = htmlentities($_POST['LastName']);
-        $Name = htmlentities($_POST['Name']);
+    if (!empty($user['Name']) && !empty($user['LastName']) && !empty($user['Email']) && !empty($user['password']) && !empty($user['password2']) && isset($user['Name']) && isset($user['LastName']) && isset($user['Email']) && isset($user['password']) && isset($user['password2'])) {
+        $LastName = htmlentities($user['LastName']);
+        $Name = htmlentities($user['Name']);
 
-        if ($_POST['password'] === $_POST['password2']) {
-            if (strlen($_POST['password']) >= 8) {
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        if ($user['password'] === $user['password2']) {
+            if (strlen($user['password']) >= 8) {
+                $password = password_hash($user['password'], PASSWORD_DEFAULT);
             } else {
                 exit;
             }
@@ -21,8 +25,8 @@ if (!empty(file_get_contents('/../Public/JS/script.js'))) {
         }
 
 
-        if (filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL)) {
-            $Email = htmlentities($_POST['Email']);
+        if (filter_var($user['Email'], FILTER_VALIDATE_EMAIL)) {
+            $Email = htmlentities($user['Email']);
         } else {
             exit;
         }
@@ -30,10 +34,11 @@ if (!empty(file_get_contents('/../Public/JS/script.js'))) {
         // action finale
 
         $Data_base = new Database();
-        $User = new UserRepository();
-        $User->CreateThisUser();
+        $user = new User($user);
+        $UserRepositori = new UserRepository();
+        $UserRepositori->CreateThisUser($user);
         header('Content-Type: application/json');
-        echo json_encode($User);
+        echo json_encode($user);
     } else {
     }
 }

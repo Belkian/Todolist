@@ -1,126 +1,146 @@
 <?php
+
+namespace src\Models;
+
 class User
 {
-    private $ID;
-    private $NAME;
-    private $LASTNAME;
-    private $PASSWORD;
-    private $EMAIL;
+    private $Id;
+    private $Name;
+    private $Lastname;
+    private $Password;
+    private $Email;
 
-    public function __construct(object $datas)
+    public function __construct(array $data = array())
     {
-        foreach ($datas as $key => $value) {
-            $this->$key = $value;
+        $this->hydrate($data);
+    }
+
+    private function hydrate(array $data): void
+    {
+        foreach ($data as $key => $value) {
+            $parts = explode('_', $key);
+            $setter = 'set';
+            foreach ($parts as $part) {
+                $setter .= ucfirst(strtolower($part));
+            }
+
+            $this->$setter($value);
         }
     }
 
     public function getObjectToArray(): array
     {
         return [
-            'ID' => $this->getID(),
-            'LASTNAME' => $this->getLASTNAME(),
-            'NAME' => $this->getNAME(),
-            'EMAIL' => $this->getEMAIL(),
-            'PASSWORD' => $this->getPASSWORD(),
+            'ID' => $this->getId(),
+            'LASTNAME' => $this->getLastname(),
+            'NAME' => $this->getName(),
+            'EMAIL' => $this->getEmail(),
+            'PASSWORD' => $this->getPassword(),
         ];
     }
 
     public function passwordverify(string $password): bool
     {
-        return password_verify($password, $this->getpassword());
+        return password_verify($password, $this->getPassword());
     }
 
     /**
-     * Get the value of ID
+     * Get the value of Email
      */
-    public function getID()
+    public function getEmail()
     {
-        return $this->ID;
+        return $this->Email;
     }
 
     /**
-     * Set the value of ID
+     * Set the value of Email
      *
      * @return  self
      */
-    public function setID($ID)
+    public function setEmail($Email)
     {
-        $this->ID = $ID;
+        $this->Email = $Email;
 
         return $this;
     }
 
     /**
-     * Get the value of NAME
+     * Get the value of Password
      */
-    public function getNAME()
+    public function getPassword()
     {
-        return $this->NAME;
+        return $this->Password;
     }
 
     /**
-     * Set the value of NAME
+     * Set the value of Password
      *
      * @return  self
      */
-    public function setNAME($NAME)
+    public function setPassword($Password)
     {
-        $this->NAME = $NAME;
+        $this->Password = $Password;
 
         return $this;
     }
 
     /**
-     * Get the value of LASTNAME
+     * Get the value of Lastname
      */
-    public function getLASTNAME()
+    public function getLastname()
     {
-        return $this->LASTNAME;
+        return $this->Lastname;
     }
 
     /**
-     * Set the value of LASTNAME
+     * Set the value of Lastname
      *
      * @return  self
      */
-    public function setLASTNAME($LASTNAME)
+    public function setLastname($Lastname)
     {
-        $this->LASTNAME = $LASTNAME;
+        $this->Lastname = $Lastname;
+
+        return $this;
     }
 
     /**
-     * Get the value of PASSWORD
+     * Get the value of Name
      */
-    public function getPASSWORD()
+    public function getName()
     {
-        return $this->PASSWORD;
+        return $this->Name;
     }
 
     /**
-     * Set the value of PASSWORD
+     * Set the value of Name
      *
      * @return  self
      */
-    public function setPASSWORD($PASSWORD)
+    public function setName($Name)
     {
-        $this->PASSWORD = $PASSWORD;
+        $this->Name = $Name;
+
+        return $this;
     }
 
     /**
-     * Get the value of EMAIL
+     * Get the value of Id
      */
-    public function getEMAIL()
+    public function getId()
     {
-        return $this->EMAIL;
+        return $this->Id;
     }
 
     /**
-     * Set the value of EMAIL
+     * Set the value of Id
      *
      * @return  self
      */
-    public function setEMAIL($EMAIL)
+    public function setId($Id)
     {
-        $this->EMAIL = $EMAIL;
+        $this->Id = $Id;
+
+        return $this;
     }
 }

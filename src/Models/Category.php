@@ -1,57 +1,66 @@
 <?php
 
-namespace Category;
+namespace src\Models;
 
 class Category
 {
-    private $id_category;
-    private $name_category;
+    private $Id;
+    private $Name;
 
 
-    function __construct(array $datas)
+    function __construct(array $data)
     {
-        foreach ($datas as $key => $value) {
-            $this->$key = $value;
+        $this->hydrate($data);
+    }
+    private function hydrate(array $data): void
+    {
+        foreach ($data as $key => $value) {
+            $parts = explode('_', $key);
+            $setter = 'set';
+            foreach ($parts as $part) {
+                $setter .= ucfirst(strtolower($part));
+            }
+
+            $this->$setter($value);
         }
     }
 
-
     /**
-     * Get the value of id_category
+     * Get the value of Name
      */
-    public function getId_category()
+    public function getName()
     {
-        return $this->id_category;
+        return $this->Name;
     }
 
     /**
-     * Set the value of id_category
+     * Set the value of Name
      *
      * @return  self
      */
-    public function setId_category($id_category)
+    public function setName($Name)
     {
-        $this->id_category = $id_category;
+        $this->Name = $Name;
 
         return $this;
     }
 
     /**
-     * Get the value of name_category
+     * Get the value of Id
      */
-    public function getName_category()
+    public function getId()
     {
-        return $this->name_category;
+        return $this->Id;
     }
 
     /**
-     * Set the value of name_category
+     * Set the value of Id
      *
      * @return  self
      */
-    public function setName_category($name_category)
+    public function setId($Id)
     {
-        $this->name_category = $name_category;
+        $this->Id = $Id;
 
         return $this;
     }
