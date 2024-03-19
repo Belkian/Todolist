@@ -1,7 +1,7 @@
 <?php
 ?>
 
-<div action="" method="post" class="space-y-6 bg-cyan-700 w-10/12 h-7/12 m-auto rounded-lg ">
+<div class="space-y-6 bg-cyan-700 w-10/12 h-7/12 m-auto rounded-lg ">
     <h2 class="font-bold text-center">Register</h2>
 
     <label for="Name">Name :</label>

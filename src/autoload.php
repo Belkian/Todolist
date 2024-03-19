@@ -1,7 +1,5 @@
 <?php
 
-use src\Models\Database;
-
 spl_autoload_register('chargerClasses');
 
 function chargerClasses($classe)

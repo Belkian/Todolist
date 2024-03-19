@@ -41,15 +41,14 @@ class TaskRepository
 
     public function CreateThisTask(Task $task): bool
     {
-        $sql = "INSERT INTO task(ID, TITLE, TASK, VALID, ID_USER, ID_PRIORITY) VALUES (':TITLE',':TASK',':VALID',':ID_USER',':ID_PRIORITY')";
+        $sql = "INSERT INTO task(ID, TITLE, TASK, DATE, ID_USER, ID_PRIORITY) VALUES (':TITLE',':TASK',':DATE',':ID_USER',':ID_PRIORITY')";
 
         $statement = $this->DB->prepare($sql);
 
         $retour = $statement->execute([
-            ':ID' => $task->getId(),
             ':TITLE' => $task->getTitle(),
             ':TASK' => $task->getTask(),
-            ':VALID' => $task->getValid(),
+            ':DATE' => $task->getValid(),
             ':ID_USER' => $task->getIdUser(),
             ':ID_PRIORITY' => $task->getIdPriority()
         ]);

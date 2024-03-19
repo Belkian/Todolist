@@ -47,7 +47,6 @@ class UserRepository
         $statement = $this->DB->prepare($sql);
 
         $retour = $statement->execute([
-            ':ID' => $user->getId(),
             ':NAME' => $user->getName(),
             ':LASTNAME' => $user->getLastname(),
             ':PASSWORD' => $user->getPassword(),
@@ -91,5 +90,18 @@ class UserRepository
         } catch (\Error $error) {
             return false;
         }
+    }
+
+    public function ConnectThisUser(string $Email): User
+    {
+        $sql = "SELECT * FROM " . PREFIXE . "user WHERE Email = :Email";
+
+        $statement = $this->DB->prepare($sql);
+        $statement->bindParam(':Email', $Email);
+        $statement->execute();
+        $statement->setFetchMode(PDO::FETCH_CLASS, 'src\Models\User');
+        $retour = $statement->fetch();
+
+        return $retour;
     }
 }

@@ -46,7 +46,6 @@ class PriorityRepository
         $statement = $this->DB->prepare($sql);
 
         $retour = $statement->execute([
-            ':ID' => $Priority->getId(),
             ':PRIORITY' => $Priority->getPriority(),
         ]);
 

@@ -7,8 +7,7 @@ class Category
     private $Id;
     private $Name;
 
-
-    function __construct(array $data)
+    public function __construct(array $data = array())
     {
         $this->hydrate($data);
     }

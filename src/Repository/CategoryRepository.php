@@ -46,7 +46,6 @@ class CategoryRepository
         $statement = $this->DB->prepare($sql);
 
         $retour = $statement->execute([
-            ':ID' => $Category->getId(),
             ':NAME' => $Category->getName(),
         ]);
 
