@@ -7,11 +7,11 @@ class Task
     private $Id;
     private $Title;
     private $Task;
-    private $Valid;
+    private $Date;
     private $IdUser;
     private $IdPriority;
 
-    public function __construct(array $data = array())
+    public function __construct(array $data)
     {
         $this->hydrate($data);
     }
@@ -85,21 +85,21 @@ class Task
     }
 
     /**
-     * Get the value of Valid
+     * Get the value of Date
      */
-    public function getValid()
+    public function getDate()
     {
-        return $this->Valid;
+        return $this->Date;
     }
 
     /**
-     * Set the value of Valid
+     * Set the value of Date
      *
      * @return  self
      */
-    public function setValid($Valid)
+    public function setDate($Date)
     {
-        $this->Valid = $Valid;
+        $this->Date = $Date;
 
         return $this;
     }

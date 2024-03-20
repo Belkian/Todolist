@@ -2,6 +2,7 @@
 include("./../src/autoload.php");
 
 use src\Models\Database;
+use src\Models\Task;
 use src\Models\User;
 use src\Repository\TaskRepository;
 use src\Repository\UserRepository;
@@ -44,11 +45,18 @@ if (!empty(file_get_contents('php://input'))) {
         echo json_encode(['message' => 'You are  register you can now sign in.']);
     }
 
-    if (!empty($user['taskName']) && !empty($user['priority']) && !empty($user['category'])) {
-        $Data_base = new Database();
-        $TaskRepository = new TaskRepository();
 
-        $TaskRepository->CreateThisTask($user['taskName'], $user['priority'], $user['category']);
+    $Task = $user;
+    if (!empty($Task['Title']) && !empty($Task['IdPriority']) && !empty($Task['Date']) && !empty($Task['Task']) && !empty($Task['IdUser'])) {
+        $Data_base = new Database();
+        $NewTask = new Task($Task);
+        $TaskRepository = new TaskRepository();
+        $TaskRepository->CreateThisTask($NewTask);
+        if ($TaskRepository->CreateThisTask($NewTask)) {
+            var_dump('ca marche');
+        } else {
+            var_dump('marche pas');
+        }
     }
 } else {
     header('Content-Type: application/json');

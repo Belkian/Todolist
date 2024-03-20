@@ -1,7 +1,7 @@
 <?php
 ?>
 
-<div class="space-y-6 bg-cyan-700 w-10/12 h-7/12 m-auto rounded-lg ">
+<div id="ModalRegister" class="hidden *:mt-0 space-y-6 bg-cyan-700 w-10/12 h-7/12 m-auto rounded-lg ">
     <h2 class="font-bold text-center">Register</h2>
 
     <label for="Name">Name :</label>
@@ -30,6 +30,8 @@
     <?php if ($code_erreur === 2) { ?>
         <p class='message error'>Tout les champs doivent être remplis.</p>
     <?php } ?>
-    <input type="submit" name="submit" value="S'inscrire" onclick="CreateNewUser()">
+    <div class="flex justify-evenly *:p-2 *:bg-yellow-600 *:rounded-lg *:m-2">
+        <input type="submit" name="submit" value="S'inscrire" onclick="CreateNewUser()">
+        <input type="submit" name="connect" value="Already register ?" onclick="HiddenRegisterConnexion()">
+    </div>
 </div>
-<input type="submit" name="connect" value="Se connecter">

@@ -4,11 +4,11 @@ namespace src\Models;
 
 class User
 {
-    private $Id;
-    private $Name;
-    private $Lastname;
-    private $Password;
-    private $Email;
+    private $ID;
+    private $NAME;
+    private $LASTNAME;
+    private $PASSWORD;
+    private $EMAIL;
 
     public function __construct(array $data = array())
     {
@@ -31,11 +31,11 @@ class User
     public function getObjectToArray(): array
     {
         return [
-            'ID' => $this->getId(),
-            'LASTNAME' => $this->getLastname(),
-            'NAME' => $this->getName(),
-            'EMAIL' => $this->getEmail(),
-            'PASSWORD' => $this->getPassword(),
+            'ID' => $this->getID(),
+            'NAME' => $this->getNAME(),
+            'LASTNAME' => $this->getLASTNAME(),
+            'EMAIL' => $this->getEMAIL(),
+            'PASSWORD' => $this->getPASSWORD(),
         ];
     }
 
@@ -45,101 +45,91 @@ class User
     }
 
     /**
-     * Get the value of Email
+     * Get the value of ID
      */
-    public function getEmail()
+    public function getID()
     {
-        return $this->Email;
+        return $this->ID;
     }
 
     /**
-     * Set the value of Email
-     *
-     * @return  self
+     * Set the value of ID
      */
-    public function setEmail($Email)
+    public function setID($ID): self
     {
-        $this->Email = $Email;
+        $this->ID = $ID;
 
         return $this;
     }
 
     /**
-     * Get the value of Password
+     * Get the value of NAME
      */
-    public function getPassword()
+    public function getNAME()
     {
-        return $this->Password;
+        return $this->NAME;
     }
 
     /**
-     * Set the value of Password
-     *
-     * @return  self
+     * Set the value of NAME
      */
-    public function setPassword($Password)
+    public function setNAME($NAME): self
     {
-        $this->Password = $Password;
+        $this->NAME = $NAME;
 
         return $this;
     }
 
     /**
-     * Get the value of Lastname
+     * Get the value of LASTNAME
      */
-    public function getLastname()
+    public function getLASTNAME()
     {
-        return $this->Lastname;
+        return $this->LASTNAME;
     }
 
     /**
-     * Set the value of Lastname
-     *
-     * @return  self
+     * Set the value of LASTNAME
      */
-    public function setLastname($Lastname)
+    public function setLASTNAME($LASTNAME): self
     {
-        $this->Lastname = $Lastname;
+        $this->LASTNAME = $LASTNAME;
 
         return $this;
     }
 
     /**
-     * Get the value of Name
+     * Get the value of PASSWORD
      */
-    public function getName()
+    public function getPASSWORD()
     {
-        return $this->Name;
+        return $this->PASSWORD;
     }
 
     /**
-     * Set the value of Name
-     *
-     * @return  self
+     * Set the value of PASSWORD
      */
-    public function setName($Name)
+    public function setPASSWORD($PASSWORD): self
     {
-        $this->Name = $Name;
+        $this->PASSWORD = $PASSWORD;
 
         return $this;
     }
 
     /**
-     * Get the value of Id
+     * Get the value of EMAIL
      */
-    public function getId()
+    public function getEMAIL()
     {
-        return $this->Id;
+        return $this->EMAIL;
     }
 
     /**
-     * Set the value of Id
-     *
-     * @return  self
+     * Set the value of EMAIL
      */
-    public function setId($Id)
+    public function setEMAIL($EMAIL): self
     {
-        $this->Id = $Id;
+        $this->EMAIL = $EMAIL;
 
         return $this;
     }

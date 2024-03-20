@@ -24,7 +24,10 @@ if (isset($_GET['erreur'])) {
                 <input type="checkbox" name="" id="" class="size-6 ">
                 <h3>Tache</h3>
             </div>
+
             <div class="flex justify-end *:m-4">
+                <h4>Description</h4>
+                <p></p>
                 <h4>priority</h4>
                 <h4>catégory</h4>
             </div>

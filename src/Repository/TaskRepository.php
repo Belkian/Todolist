@@ -39,24 +39,35 @@ class TaskRepository
         return $retour;
     }
 
-    public function CreateThisTask(Task $task): bool
+    public function CreateThisTask(Task $task)
     {
-        $sql = "INSERT INTO task(ID, TITLE, TASK, DATE, ID_USER, ID_PRIORITY) VALUES (':TITLE',':TASK',':DATE',':ID_USER',':ID_PRIORITY')";
+
+        $sql = "INSERT INTO " . PREFIXE . "task (TITLE, TASK, DATE, ID_USER, ID_PRIORITY) VALUES (':TITLE',':TASK',':DATE',':ID_USER',':ID_PRIORITY')";
 
         $statement = $this->DB->prepare($sql);
 
         $retour = $statement->execute([
             ':TITLE' => $task->getTitle(),
             ':TASK' => $task->getTask(),
-            ':DATE' => $task->getValid(),
+            ':DATE' => $task->getDate(),
             ':ID_USER' => $task->getIdUser(),
             ':ID_PRIORITY' => $task->getIdPriority()
         ]);
-
+        // $this->AssosUserTask($task->getIdUser(),);
         return $retour;
     }
 
+    // public function AssosUserTask()
+    // {
+    //     $sql = "INSERT INTO " . PREFIXE . "avoir(ID_CATEGORY, ID_TASK) VALUES (':ID_CATEGORY',':ID_TASK')";
+    //     $statement = $this->DB->prepare($sql);
 
+    //     $retour = $statement->execute([
+    //         ':ID' => $task->getId(),
+    //         ':TITLE' => $task->getTitle()
+    //     ]);
+
+    // }
     public function UpdateThisTask(Task $task): bool
     {
         $sql = "UPDATE" . PREFIXE . "task SET 
@@ -73,7 +84,7 @@ class TaskRepository
             ':ID' => $task->getId(),
             ':TITLE' => $task->getTitle(),
             ':TASK' => $task->getTask(),
-            ':VALID' => $task->getValid(),
+            ':VALID' => $task->getDate(),
             ':ID_USER' => $task->getIdUser(),
             ':ID_PRIORITY' => $task->getIdPriority()
         ]);

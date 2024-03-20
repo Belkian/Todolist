@@ -11,8 +11,7 @@ if (!empty(file_get_contents('php://input'))) {
 
     $UserRepository = new UserRepository();
     $Data_base = new Database();
-    $UserRepository->ConnectThisUser($user['Email'], $user['password']);
-
+    $retour = $UserRepository->ConnectThisUser($user['Email'], $user['password']);
     header('Content-Type: application/json');
-    echo json_encode($user);
+    echo json_encode($retour->getObjectToArray());
 }

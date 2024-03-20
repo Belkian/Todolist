@@ -92,16 +92,16 @@ class UserRepository
         }
     }
 
-    public function ConnectThisUser(string $Email): User
+    public function ConnectThisUser(string $Email, string $password)
     {
-        $sql = "SELECT * FROM " . PREFIXE . "user WHERE Email = :Email";
+        $sql = "SELECT * FROM " . PREFIXE . "user WHERE EMAIL = :EMAIL";
 
         $statement = $this->DB->prepare($sql);
-        $statement->bindParam(':Email', $Email);
+        $statement->bindParam(':EMAIL', $Email);
         $statement->execute();
         $statement->setFetchMode(PDO::FETCH_CLASS, 'src\Models\User');
-        $retour = $statement->fetch();
 
+        $retour = $statement->fetch();
         return $retour;
     }
 }
