@@ -198,6 +198,3 @@ function NouvelleTache() {
     NewTask.classList.toggle("hidden");
     Parametre.classList.add('hidden');
 }
-function deco() {
-
-}
