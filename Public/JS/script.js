@@ -25,8 +25,6 @@ function CreateNewUser() {
 
         request.onreadystatechange = function () {
             if (request.readyState === 4 && request.status === 200) {
-                console.log(request.responseText);
-                reponse.innerHTML += request.responseText + "<br>";
                 // reponse.innerHTML += JSON.parse(request.responseText) + "<br>";
             }
         }
@@ -56,10 +54,35 @@ function Connexion() {
             AffichageUser(ObjectUser);
             let Register = document.querySelector('#ModalRegister');
             let Connexion = document.querySelector('#ModalConnexion');
+            let bouton = document.querySelector('#bouton');
             Connexion.classList.add("hidden");
             Register.classList.add("hidden");
+            bouton.classList.remove("hidden");
+            GetAllTask(ObjectUser.ID);
+        }
+    }
+}
 
-            GetAllTask();
+
+function GetAllTask(id_user) {
+
+    let data = {
+        "GetTaskUser": true,
+        "Id_User": id_user,
+    }
+    const request = new XMLHttpRequest();
+    request.open('POST', 'traitement.php', true);
+
+    request.setRequestHeader('Content-Type', 'application/json');
+    data = JSON.stringify(data);
+
+    request.send(data);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            let tableauTaches = JSON.parse(request.responseText)
+            tableauTaches.forEach(tache => {
+                afficheTask(tache);
+            });
         }
     }
 
@@ -79,21 +102,15 @@ function HiddenRegisterConnexion() {
 }
 
 
-function GetAllTask() {
-    
-}
-
 function CreateTask() {
     let taskName = document.getElementById('taskName').value;
     let priority = document.getElementById('priority').value;
-    // let category = document.getElementById('category').value;
     let taskDescription = document.getElementById('taskDescription').value;
     let Date = document.getElementById('date').value;
     let id_user = sessionStorage.getItem("Id_User");
     let data = {
         "Title": taskName,
         "IdPriority": priority,
-        // "IdCategory": category,
         "Date": Date,
         "Task": taskDescription,
         "IdUser": id_user
@@ -105,32 +122,82 @@ function CreateTask() {
     data = JSON.stringify(data);
 
     request.send(data);
-
     request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
-             reponse.innerHTML += request.responseText + "<br>";
-            GetAllTask();
+            let tableauTaches = JSON.parse(request.responseText)
+            let tache = document.querySelector('#taskboard');
+            tache.innerHTML = '';
+            tableauTaches.forEach(tache => {
+                afficheTask(tache);
+            });
         }
     }
 }
 
+
+function DeleteThisTask(id_user, Id_Task) {
+
+    let data = {
+        "Id_User": id_user,
+        "Id_Task": Id_Task,
+    }
+    const request = new XMLHttpRequest();
+    request.open('POST', 'traitement.php', true);
+
+    request.setRequestHeader('Content-Type', 'application/json');
+    data = JSON.stringify(data);
+
+    request.send(data);
+
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            let tableauTaches = JSON.parse(request.responseText);
+            let tache = document.querySelector('#taskboard');
+            tache.innerHTML = '';
+            tableauTaches.forEach(tache => {
+                afficheTask(tache);
+            });
+
+        }
+    }
+
+}
+
+
+
+
+
+function afficheTask(Task) {
+
+    let tache = document.querySelector('#taskboard');
+    tache.innerHTML += `<div class=" w-2/3 h-12 flex justify-between items-center bg-cyan-600 my-3 mx-auto *:m-4 rounded-md *:text-white">
+    <div class="flex *:m-1 shadow-2xl">
+    <img src="./img/trash-solid.svg" alt="" class="size-5" onclick="DeleteThisTask(${Task.ID_USER},${Task.ID})">
+    <input type="checkbox" value="task${Task.ID}" class="size-6">
+    <h3>${Task.TITLE}</h3>
+    </div>
+    <div class="flex justify-end *:m-4">
+    <h4>${Task.TASK}</h4>
+    <p>${Task.DATE}</p>
+    <h4 class="${Task.PRIORITY}">${Task.PRIORITY}</h4>
+    <h4>${Task.CATEGORY}</h4> 
+    </div>
+    </div>`;
+}
+
+function Params() {
+    let NewTask = document.getElementById("ModalnewTask");
+    let Parametre = document.querySelector('#Params');
+    Parametre.classList.toggle('hidden');
+    NewTask.classList.add('hidden');
+
+}
 function NouvelleTache() {
     let NewTask = document.getElementById("ModalnewTask");
+    let Parametre = document.querySelector('#Params');
     NewTask.classList.toggle("hidden");
+    Parametre.classList.add('hidden');
 }
-// function affichage_nouvel_tesk(json) {
-//     //création d'une div en fonction des données reçus
-   
-//    <div class=" w-2/3 h-12 flex justify-between items-center bg-cyan-600 my-3 mx-auto *:m-4 rounded-md *:text-white">
-//         <div class="flex *:m-1 ">
-//             <input type="checkbox" name="" id="" class="size-6 ">
-//                 <h3>Tache</h3>
-//         </div>
+function deco() {
 
-//         <div class="flex justify-end *:m-4">
-//             <h4>Description</h4>
-//             <p></p>
-//             <h4>priority</h4>
-//             <h4>catégory</h4>
-//         </div>
-// }
+}

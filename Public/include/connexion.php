@@ -1,7 +1,7 @@
 <?php
 ?>
 
-<div id="ModalConnexion" class="space-y-6 bg-cyan-700 w-10/12 h-7/12 m-auto rounded-lg">
+<div id="ModalConnexion" class="shadow-2xl space-y-6 bg-cyan-700 w-10/12 h-7/12 m-auto rounded-lg">
     <h2 class="font-bold text-center">Connexion</h2>
 
     <div>

@@ -10,6 +10,7 @@ class Task
     private $Date;
     private $IdUser;
     private $IdPriority;
+ 
 
     public function __construct(array $data)
     {
@@ -28,6 +29,19 @@ class Task
             $this->$setter($value);
         }
     }
+    public function getObjectToArrayTask(): array
+    {
+        return [
+            'ID' => $this->getID(),
+            'Title' => $this->getTitle(),
+            'Task' => $this->getTask(),
+            'Date' => $this->getDate(),
+            'IdUser' => $this->getIdUser(),
+            'IdPriority' => $this->getIdPriority(),
+        ];
+    }
+
+
     /**
      * Get the value of Id
      */
@@ -143,4 +157,5 @@ class Task
 
         return $this;
     }
+
 }

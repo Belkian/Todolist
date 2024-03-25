@@ -2,7 +2,6 @@
 include("./../src/autoload.php");
 
 use src\Models\Database;
-use src\Models\User;
 use src\Repository\UserRepository;
 
 if (!empty(file_get_contents('php://input'))) {

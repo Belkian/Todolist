@@ -7,6 +7,7 @@ use src\Models\User;
 use src\Repository\TaskRepository;
 use src\Repository\UserRepository;
 
+
 if (!empty(file_get_contents('php://input'))) {
     $data = file_get_contents('php://input');
 
@@ -51,12 +52,26 @@ if (!empty(file_get_contents('php://input'))) {
         $Data_base = new Database();
         $NewTask = new Task($Task);
         $TaskRepository = new TaskRepository();
-        $TaskRepository->CreateThisTask($NewTask);
         if ($TaskRepository->CreateThisTask($NewTask)) {
-            var_dump('ca marche');
+            $allTASK =  $TaskRepository->getAllTask($Task['IdUser']);
+            echo json_encode($allTASK);
         } else {
-            var_dump('marche pas');
+            echo 'erreur dans la creation de la tache';
         }
+    }
+
+    if (!empty($Task['Id_User']) && !empty($Task['GetTaskUser']) && $Task['GetTaskUser'] == true) {
+        $Data_base = new Database();
+        $TaskRepository = new TaskRepository();
+        $allTASK =  $TaskRepository->getAllTask($Task['Id_User']);
+        echo json_encode($allTASK);
+    }
+    if (!empty($Task['Id_User']) && !empty($Task['Id_Task']) && isset($Task['Id_Task'])) {
+        $Data_base = new Database();
+        $TaskRepository = new TaskRepository();
+        $TaskRepository->DeleteThisTask($Task['Id_Task']);
+        $allTASK = $TaskRepository->getAllTask($Task['Id_User']);
+        echo json_encode($allTASK);
     }
 } else {
     header('Content-Type: application/json');

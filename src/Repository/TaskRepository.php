@@ -17,9 +17,18 @@ class TaskRepository
         require_once __DIR__ . '/../../config.php';
     }
 
-    public function getAllTask()
+    public function getAllTask($IdUser)
     {
-        $sql = "SELECT * FROM " . PREFIXE . "task;";
+        $sql = "SELECT tdl_task.ID, 
+        tdl_task.TITLE, 
+        tdl_task.TASK, 
+        tdl_task.DATE, 
+        tdl_task.ID_USER, 
+        tdl_task.ID_PRIORITY,
+        tdl_priority.PRIORITY
+        FROM tdl_task, tdl_user, tdl_priority
+        WHERE tdl_task.ID_USER = " . $IdUser . "
+        AND tdl_task.ID_PRIORITY = tdl_priority.ID GROUP BY tdl_task.ID;";
 
         $retour = $this->DB->query($sql)->fetchAll(PDO::FETCH_OBJ);
 
@@ -42,7 +51,7 @@ class TaskRepository
     public function CreateThisTask(Task $task)
     {
 
-        $sql = "INSERT INTO " . PREFIXE . "task (TITLE, TASK, DATE, ID_USER, ID_PRIORITY) VALUES (':TITLE',':TASK',':DATE',':ID_USER',':ID_PRIORITY')";
+        $sql = "INSERT INTO " . PREFIXE . "task (TITLE, TASK, DATE, ID_USER, ID_PRIORITY) VALUES (:TITLE,:TASK,:DATE,:ID_USER,:ID_PRIORITY);";
 
         $statement = $this->DB->prepare($sql);
 
@@ -53,21 +62,11 @@ class TaskRepository
             ':ID_USER' => $task->getIdUser(),
             ':ID_PRIORITY' => $task->getIdPriority()
         ]);
-        // $this->AssosUserTask($task->getIdUser(),);
+
+
         return $retour;
     }
 
-    // public function AssosUserTask()
-    // {
-    //     $sql = "INSERT INTO " . PREFIXE . "avoir(ID_CATEGORY, ID_TASK) VALUES (':ID_CATEGORY',':ID_TASK')";
-    //     $statement = $this->DB->prepare($sql);
-
-    //     $retour = $statement->execute([
-    //         ':ID' => $task->getId(),
-    //         ':TITLE' => $task->getTitle()
-    //     ]);
-
-    // }
     public function UpdateThisTask(Task $task): bool
     {
         $sql = "UPDATE" . PREFIXE . "task SET 
@@ -95,8 +94,8 @@ class TaskRepository
     public function DeleteThisTask($ID)
     {
         try {
-            $sql = "DELETE FROM" . PREFIXE . "avoir WHERE ID_TASK =  :ID;
-              DELETE FROM" . PREFIXE . "task WHERE ID = :ID;";
+            // DELETE FROM " . PREFIXE . "avoir WHERE ID_TASK =  :ID;
+            $sql = "DELETE FROM " . PREFIXE . "task WHERE ID = :ID;";
             $statement = $this->DB->prepare($sql);
             return $statement->execute([':ID' => $ID]);
         } catch (\Error $error) {
